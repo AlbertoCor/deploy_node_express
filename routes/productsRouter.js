@@ -20,20 +20,26 @@ router.get('/', (req, res) =>{     // New route
 
   router.get('/filter', (req, res) => {
     res.send('im a filter')
-  })
+  });
   
   router.get('/:id', (req, res) => {
     const {id} = req.params; // ecma6 using: const { object to search in params }, no ecma (req.params.id)
-    res.json({
-      id,
-      name: "Product 02",
-      price: 2000,
-    });
+    if (id === '999'){
+      res.status(404).json({
+        message: 'not found'
+      });
+    } else {
+      res.status(200).json({
+        id,
+        name: "Product 02",
+        price: 2000,
+      });
+    }
   });
 
 router.post('/', (req, res) => { // collect post data in json from postman or insomnia
   const body = req.body;
-  res.json({
+  res.status(201).json({
     message: 'created', 
     data: body
   })
