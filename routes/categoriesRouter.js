@@ -11,3 +11,4 @@ router.get("/:categoryId/products/:productId", (req,res) => { // endpoint from 2
   });
 
   module.exports = router;
+  

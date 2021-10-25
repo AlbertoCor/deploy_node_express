@@ -27,7 +27,7 @@ router.get('/', (req, res) =>{     // New route
     res.json({
       id,
       name: "Product 02",
-      price: 2000
+      price: 2000,
     });
   });
 
@@ -40,7 +40,7 @@ router.post('/', (req, res) => { // collect post data in json from postman or in
 })
 
 router.patch('/:id', (req, res) => { // collect post data in json from postman or insomnia
-  const {id} = req.params;
+  const { id } = req.params;
   const body = req.body;
   res.json({
     message: 'update', 
@@ -48,5 +48,13 @@ router.patch('/:id', (req, res) => { // collect post data in json from postman o
     id,
   })
 })
+
+router.delete('/:id', (req, res) => { // delete data in json from postman or insomnia
+  const { id } = req.params;
+  res.json({
+    message: 'deleted', 
+    id,
+  });
+});
   
 module.exports = router;
