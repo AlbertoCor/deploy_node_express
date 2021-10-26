@@ -1,20 +1,12 @@
-const { response } = require('express');
 const express = require('express');
-const faker = require('faker');
+
+const ProductsService = require ('./../services/productService')
 
 const router = express.Router();
+const service = new ProductsService();
 
 router.get('/', (req, res) =>{     // New route
-    const products = [];
-    const { size } = req.query;
-    const limit = size || 10;
-    for ( let index = 0; index < limit; index ++){
-      products.push({
-        name: faker.commerce.productName(),
-        price: parseInt(faker.commerce.price(), 10),
-        image: faker.image.imageUrl()
-      });
-    }
+    const products = service.find();
     res.json(products);
   });
 
@@ -24,17 +16,8 @@ router.get('/', (req, res) =>{     // New route
   
   router.get('/:id', (req, res) => {
     const {id} = req.params; // ecma6 using: const { object to search in params }, no ecma (req.params.id)
-    if (id === '999'){
-      res.status(404).json({
-        message: 'not found'
-      });
-    } else {
-      res.status(200).json({
-        id,
-        name: "Product 02",
-        price: 2000,
-      });
-    }
+    const product = service.findone(id);
+    res.json(product);
   });
 
 router.post('/', (req, res) => { // collect post data in json from postman or insomnia
